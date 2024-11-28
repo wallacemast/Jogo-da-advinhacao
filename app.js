@@ -13,24 +13,43 @@ function verificarChute() {
         exibirTextoNaTela("h1", "Acertou!");
         exibirTextoNaTela("h2", "");
         contador == 1 ? exibirTextoNaTela("p", "Caraca de Primera!?") : exibirTextoNaTela("p", `Você precisou de ${contador} tentativas!`);
-    } else if (chute > numeroSecreto){
+        document.getElementById("reiniciar").removeAttribute("disabled");
+    } else 
+        if (chute > numeroSecreto){
         exibirTextoNaTela("h1", "ERROU");
         exibirTextoNaTela("h2", "O número é menor");
         exibirTextoNaTela("p", "Escolha outro número entre 1 e 10:");
-        contador++  
-    } else {
+        } else {
         exibirTextoNaTela("h1", "ERROU");
         exibirTextoNaTela("h2", "O número é maior");
         exibirTextoNaTela("p", "Escolha outro número entre 1 e 10:");
-        contador++
     }
+    contador++
+    limpaCampo(); 
 }
 
-exibirTextoNaTela("h1", "Jogo da Advinhação" );
-exibirTextoNaTela("span", "Feito Por: Wallace Cavalcante" );
-exibirTextoNaTela("p", "Escolha um número entre 1 e 10:");
+function resetarMensagens() {
+    exibirTextoNaTela("h1", "Jogo da Advinhação" );
+    exibirTextoNaTela("span", "Feito Por: Wallace Cavalcante" );
+    exibirTextoNaTela("p", "Escolha um número entre 1 e 10:");
+}
+
 
 function gerarNumeroAleatorio() {
-    return parseInt(Math.random() * 11 + 1);
+    return parseInt(Math.random() * 11)+ 1;
 }
 
+function limpaCampo() {
+    chute = document.querySelector('input');
+    chute.value = "";
+}
+
+function reiniciarJogo() {
+    numeroSecreto = gerarNumeroAleatorio();
+    limpaCampo();
+    contador = 1;
+    resetarMensagens();
+    document.getElementById('reiniciar').setAttribute("disabled",true);
+}
+
+resetarMensagens();
